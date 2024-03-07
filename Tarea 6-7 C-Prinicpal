@@ -1,0 +1,455 @@
+package prog067_tarea;
+
+//Autor Cora Lara
+//importar medios
+import util.Validaciones;
+import datos.*;
+import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Principal {
+
+    private static Curso curso;
+    private static String Asignaturas;
+    private static int numeroAlumnosMatriculados;
+
+    public static void main(String[] args) throws Exception {
+
+        //instanciar clases        
+        //Scanner
+        Scanner lector = new Scanner(System.in);
+
+        //para leer una linea completa de texto
+        lector.useDelimiter("\n");
+
+        //declaración de variables
+        boolean salir = false;
+        boolean cursoCreado = false;
+        int opcion;
+        int dia, mes, anio;
+        LocalDate fechaInicio;
+        LocalDate fechaFin;
+
+        //mientas no seleccionemos la opcion salir se ejecutaran las otras opciones
+        while (!salir) {
+
+            // Creación del menú (visualización de opciones en pantalla)
+            System.out.println("Selecciona una opción");
+
+            System.out.println("1. Crear curso");
+
+            System.out.println("2. Nuevo estudiante");
+
+            System.out.println("3. Nuevo profesor");
+
+            System.out.println("4. Actualizar nota");
+
+            System.out.println("5. Obtener informe profesor");
+
+            System.out.println("6. Obtener informe estudiante");
+
+            System.out.println("7. Obtener informe general");
+
+            System.out.println("8. Salir");
+
+            opcion = lector.nextInt();
+
+            //Creacion de menu(crear switch con las distintas opciones y lo quye hace cada una)
+            switch (opcion) {
+                case 1 -> {
+
+                    /* Pedirá la fecha de inicio y de fin del curso, 
+                    comprobando que la primera es anterior a la segunda.
+                    No se podrán hacer el resto de acciones hasta que el curso haya sido creado.
+                     */
+                    //crear restriccion para que no se puedan hacer el resto de cosas hata que creemos un curso
+                    if (!cursoCreado) {
+
+                        //Fecha inicio
+                        System.out.println("Introduce el día");
+                        dia = lector.nextInt();
+                        System.out.println("Introduce el mes");
+                        mes = lector.nextInt();
+                        System.out.println("Introduce el año");
+                        anio = lector.nextInt();
+
+                        fechaInicio = LocalDate.of(anio, mes, dia);
+                        //Fecha fin curso
+                        System.out.println("Introduce el día");
+                        dia = lector.nextInt();
+                        System.out.println("Introduce el mes");
+                        mes = lector.nextInt();
+                        System.out.println("Introduce el año");
+                        anio = lector.nextInt();
+
+                        fechaFin = LocalDate.of(anio, mes, dia);
+
+                        //validacion de fecha 
+                        if (fechaInicio.isAfter(fechaFin)) {
+                            try {
+                                throw new Exception("La fecha de inicio debe ser anterior a la fecha del fin del curso");
+                            } catch (Exception ex) {
+                                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+
+                        cursoCreado = true;
+                    } else {
+                        System.out.println("Ya se ha creado el curso");
+                    }
+                    break;
+                }
+
+                case 2 -> {
+
+                    try {
+
+                        //crear nuevo profesor e introducir datos
+                        if (cursoCreado) {
+                            //variables para crear un nuevo profesor
+                            String identificadorProf = "";
+                            String nombreCompleto = "";
+                            LocalDate fechaAlta;
+                            String email = "";
+                            String asignatura = "";
+
+                            //creación de la instancia Profesor 
+                            Profesor profesor = new Profesor(email, identificadorProf, nombreCompleto, nombreCompleto);
+
+                            //identificador
+                            System.out.println("Introduce el identificador del profesor");
+                            identificadorProf = lector.next();
+
+                            //validar identificador del profesor
+                            boolean esValido = profesor.validarIdentificador(identificadorProf);
+
+                            if (esValido) {
+                                System.out.println("Identificador valido");
+                            } else {
+                                System.out.println("Identificador no valido");
+                            }
+
+                            //bucle hasta cancelación de alta
+                            while (!identificadorProf.equalsIgnoreCase("x")) {
+                                System.out.println("Introduce identificador o cancele operación de alta con x");
+                                identificadorProf = lector.next();
+
+                                if (identificadorProf.equalsIgnoreCase("x")) {
+                                    System.out.println("Operación cancelada");
+                                }
+
+                                //nombre
+                                System.out.println("Introduce el nombre completo del profesor");
+                                nombreCompleto = lector.next();
+
+                                //obligatoriedad de introducir nombre y validacion de numero de caracteres
+                                if (nombreCompleto.length() == 0) {
+                                    System.out.println("El nombre completo es obligatorio para continuar");
+                                } else if (nombreCompleto.length() > 40) {
+                                    System.out.println("El nombre completo no es valido porque supera los 40 caractéres");
+
+                                } else {
+                                    System.out.println("Nombre completo valido" + nombreCompleto);
+                                }
+                                //fecha alta
+                                System.out.println("Introduce el dia");
+                                dia = lector.nextInt();
+
+                                System.out.println("Introduce el mes");
+                                mes = lector.nextInt();
+
+                                System.out.println("Introduce el año");
+                                anio = lector.nextInt();
+
+                                fechaAlta = LocalDate.of(anio, mes, dia);
+
+                                //correo electronico
+                                System.out.println("Introduce el correo electronico");
+                                email = lector.next();
+
+                                if (!Validaciones.validarEmail(email)) {
+                                    throw new Exception("El email  no es válido");
+                                } else {
+                                    System.out.println("El correo es válido");
+                                }
+
+                            }
+
+                            //asignatura
+                            System.out.println("Introduce la asignatura que imparte");
+                            asignatura = lector.next();
+
+                            if (profesor.validarAsignatura()) {
+                                System.out.println("Asignatura no valida");
+
+                            } else {
+                                System.out.println("Asignatura valida");
+                            }
+
+                            System.out.println("Se ha creado un nuevo profesor");
+
+                        } else {
+                            System.out.println("Debes crear un curso primero");
+                        }
+                        System.out.println("Se ha introducido un nuevo profesor en el sistema");
+
+                    } catch (Exception e) {
+                        System.out.println("Error, debes crear un curso primero");
+
+                    }
+                    break;
+                }
+
+                case 3 -> {
+
+                    //crear nuevo estudiante e introducir datos
+                    if (cursoCreado) {
+                        //variables estudiante
+                        String identificadorEst = "";
+                        String nombreCompleto = "";
+                        LocalDate fechaMatriculacion;
+                        String dniNie = "";
+                        String email;
+
+                        //creacion de la instancia estudiante
+                        Estudiante estudiante = new Estudiante(dniNie, identificadorEst, nombreCompleto, nombreCompleto);
+
+                        //identificador estudiante
+                        System.out.println("Introduce el identificador del estudiante");
+                        identificadorEst = lector.next();
+                        //validar identificador estudiante
+                        while (!identificadorEst.equalsIgnoreCase("x")) {
+                            System.out.println("Introduce identificador o cancele operación de alta con x");
+                            identificadorEst = lector.next();
+
+                            if (identificadorEst.equalsIgnoreCase("x")) {
+                                System.out.println("Operación cancelada");
+                            }
+
+                            //nombre
+                            System.out.println("Introduce el nombre completo del estudiante");
+                            nombreCompleto = lector.next();
+                            //validacion nombre estudiante y obligatoriedad del campo
+
+                            if (nombreCompleto.length() == 0) {
+                                System.out.println("El nombre completo es obligatorio para continuar");
+                            } else if (nombreCompleto.length() > 40) {
+                                System.out.println("El nombre completo no es valido porque supera los 40 caractéres");
+
+                            } else {
+                                System.out.println("Nombre completo valido" + nombreCompleto);
+                            }
+
+                            //fecha alta
+                            System.out.println("Introduce el dia");
+                            dia = lector.nextInt();
+
+                            System.out.println("Introduce el mes");
+                            mes = lector.nextInt();
+
+                            System.out.println("Introduce el año");
+                            anio = lector.nextInt();
+
+                            fechaMatriculacion = LocalDate.of(anio, mes, dia);
+
+                            //correo electronico
+                            System.out.println("Introduce el correo electronico");
+                            email = lector.next();
+
+                            if (!Validaciones.validarEmail(email)) {
+                                throw new Exception("El email  no es válido");
+                            } else {
+                                System.out.println("El correo es válido");
+
+                                System.out.println("Se ha introducido un nuevo alumno en el sistema");
+
+                                //solicitar notas de asignaturas y almacenan datos en tabla notas, mostrar mensaje en pantalla informando de la operacion y de la posicion del alumno en la tabla
+                                System.out.println("Introduce las notas para el alumno " + nombreCompleto + ":");
+                                
+                                //como puedo solucionar el problema sin hacer la constate MAX_ASIGNATURAS publica
+                                for (int i = 0; i < Curso.MAX_ASIGNATURAS; i++) {
+                                    System.out.println("Introduce la nota para la asignatura " + (i + 1) + ":");
+                                    int nota = lector.nextInt();
+                                    // Validar que la nota esté en el rango [0, 10]
+                                    if (Curso.validarRangoNotas(nota)) {
+                                        System.out.println("La nota debe estar en el rango de 0 a 10. Pon la nota correcta.");
+                                    } else {
+                                        curso.getNotas()[curso.getNumeroAlumnosMatriculados()][i] = nota;
+
+                                        // Incrementar el contador de alumnos matriculados (por que no lo coge si el metodo esta creado en curso?)
+                                        curso.getNumeroAlumnosMatriculados(curso.getNumeroAlumnosMatriculados() + 1);
+                                        // Imprimir un mensaje informando sobre la operación y la posición del alumno en la tabla
+                                        System.out.println("Notas del alumno " + nombreCompleto + " registradas con éxito.");
+                                        System.out.println("El alumno " + nombreCompleto + " ocupa la posición " + curso.getNumeroAlumnosMatriculados() + " en la tabla.");
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                case 4 -> {
+                    //Actualizar nota codigo provisional revisar mañana
+                    if (cursoCreado) {
+                        //Introduce el ID del alumno y de la asignatura
+                        System.out.println("Introduce el ID del alumno");
+                        identificadorEst = lector.next();
+                        System.out.println("Introduce el ID de la asignatura");
+                        Asignaturas = lector.next();
+                        // Verificar que tanto el ID del alumno como el de la asignatura existan en el sistema
+                        if (identificadorEst >= 0 && identificadorEst < curso.getNumeroAlumnosMatriculados()
+                                && Asignaturas >= 0 && Asignaturas < Curso.MAX_ASIGNATURAS) {
+
+                            // Mostrar la nota actual del alumno en la asignatura especificada
+                            int notaActual = curso.getNotas()[identificadorEst][Asignaturas];
+                            System.out.println("La nota actual del alumno en la asignatura es: " + notaActual);
+
+                            // Solicitar la nueva nota
+                            System.out.println("Introduce la nueva nota:");
+                            int nuevaNota = lector.nextInt();
+
+                            // Verificar que la nueva nota esté en el rango [0, 10]
+                            if (nuevaNota >= 0 && nuevaNota <= 10) {
+                                // Actualizar la nota correspondiente
+                                curso.getNotas()[identificadorEst][Asignaturas] = nuevaNota;
+                                System.out.println("La nota se ha actualizado correctamente.");
+                            } else {
+                                System.out.println("La nota debe estar en el rango de 0 a 10.");
+                            }
+                        } else {
+                            System.out.println("El ID del alumno o de la asignatura no existe en el sistema.");
+                            break;
+                        }
+                    }
+                }
+
+                case 5 -> {
+
+                    //variables
+                    double notaMedia = curso.calcularNotaMedia();
+                    int notaMinima = 10;
+                    int notaMaxima = 0;
+
+                    //informe de asignatura
+                    // Pedir el ID del profesor por teclado
+                    System.out.println("Introduce el ID del profesor:");
+                    String idProfesor = lector.next();
+
+                    // Comprobar si el profesor está en la lista que es un string en la clase curso(como hago para comprobar la lista?) tal vez tengo que usar el Array?
+                    if (idProfesor != null) {
+                        // Mostrar la información del profesor y la asignatura (por que no lo coge si los esta llamando de otras clases?)
+                        System.out.println("ID del profesor: " + profesor.getIdentificadorProf());
+                        System.out.println("Nombre del profesor: " + profesor.getNombreCompleto());
+                        System.out.println("ID de la asignatura: " + asignatura.getCodigo());
+                        System.out.println("Nombre de la asignatura: " + asignatura.obtenerDescripcionAsignatura());
+
+                        // Calcular el número de alumnos aprobados y suspendidos
+                        // Calcular el porcentaje de aprobados y suspendidos
+                        // Calcular la nota media, mínima y máxima (intrpducir metodo de clacular nota media de clase curso )
+                        // Iterar sobre todas las notas para encontrar la mínima y máxima
+                        for (int i = 0; i < curso.getNumeroAlumnosMatriculados(); i++) {
+                            for (int j = 0; j < Curso.MAX_ASIGNATURAS; j++) {
+                                int nota = curso.getNotas()[i][j];
+                                if (nota < notaMinima) {
+                                    notaMinima = nota;
+                                }
+                                if (nota > notaMaxima) {
+                                    notaMaxima = nota;
+                                }
+                            }
+                        }
+
+                    }
+
+                    // Imprimir la información
+                    System.out.println("Nota media de la asignatura: " + String.format("%.2f", notaMedia));
+                    System.out.println("Nota mínima de la asignatura: " + notaMinima);
+                    System.out.println("Nota máxima de la asignatura: " + notaMaxima);
+                    
+                }else{
+                        System.out.println("El ID del profesor no existe en la lista.");
+                    }
+            break;
+                }
+    }
+                //por qué da el error de "ilegal start type?"
+                case 6 -> {
+                    //informe alumno
+                    
+                    // Pedir el ID del alumno por teclado
+                    System.out.println("Introduce el ID del alumno:");
+                    String idAlumno = lector.next();
+
+                    // Comprobar si el alumno está en la lista
+                    Alumno alumno = null;
+                    for (Alumno a : listaAlumnos) {
+                        if (a.getIdentificador().equals(idAlumno)) {
+                            alumno = a;
+                            break;
+                        }
+                    }
+
+                    if (alumno != null) {
+                        // Mostrar la información del alumno
+                        System.out.println("Datos identificativos del alumno:");
+                        System.out.println("ID del alumno: " + alumno.getIdentificador());
+                        System.out.println("Nombre del alumno: " + alumno.getNombreCompleto());
+                        System.out.println("Fecha de matriculación: " + alumno.getFechaMatriculacion());
+                        System.out.println("Correo electrónico: " + alumno.getCorreoElectronico());
+                        // Mostrar la relación de notas de todas las asignaturas
+                        System.out.println("Relación de notas de todas las asignaturas:");
+                        for (int i = 0; i < Curso.MAX_ASIGNATURAS; i++) {
+                            String asignatura = Asignaturas.obtenerCodigoPorPosicion(i);
+                            int nota = alumno.getNotaAsignatura(asignatura);
+                            System.out.println(asignatura + ": " + nota);
+                        }
+                        // Calcular el número de aprobados, suspensos, nota media y % de asignaturas aprobadas
+                        int aprobados = 0;
+                        for (int i = 0; i < Curso.MAX_ASIGNATURAS; i++) {
+                            int nota = alumno.getNotaAsignatura(i);
+                            if (nota >= 5) {
+                                aprobados++;
+                            }
+                        }
+                        int suspensos = Curso.MAX_ASIGNATURAS - aprobados;
+                        double notaMedia = alumno.calcularNotaMedia();
+                        double porcentajeAprobadas = (double) aprobados / Curso.MAX_ASIGNATURAS * 100;
+                        // Imprimir la información recopilada
+                        System.out.println("Número de aprobados: " + aprobados);
+                        System.out.println("Número de suspensos: " + suspensos);
+                        System.out.println("Nota media del alumno: " + String.format("%.2f", notaMedia));
+                        System.out.println("Porcentaje de asignaturas aprobadas: " + String.format("%.2f", porcentajeAprobadas) + "%");
+                    } else {
+                        System.out.println("El ID del alumno no existe en la lista.");
+                       
+                       
+                    }
+                }
+
+                case 7 -> {
+                    // Calcular el rango de años del curso
+
+                    // Imprimir el título del informe y el nombre del curso
+                    // Imprimir las cabeceras de las columnas
+                    // Imprimir la relación de alumnos
+                    // Imprimir las notas de las asignaturas
+                    // Imprimir la nota media del alumno
+                    // Imprimir líneas separadoras (opcional)
+                    // Calcular y mostrar los totales
+                }
+                
+                
+                case 8 -> {
+                    salir = true;
+}
+                
+                default -> {
+                    System.out.println("Debes insertar un número del 1 al 8");
+
+                }
+            }
+        
+    
