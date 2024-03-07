@@ -1,0 +1,113 @@
+package datos;
+
+//Autor Cora Lara
+
+import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+public class Profesor extends Persona {
+    
+    
+    
+    
+    //variables de la clase profesor
+    private static final String PATRON_IDENTIFICADORPROF = "^(590|591|592)\\d{5}(INF|ING|FOL|SIA)$";
+    private String identificadorProf;
+    
+    
+    //validar fecha alta desde menu main
+    private LocalDate fechaAlta;
+    
+    
+    private String asignatura;
+    private static final String PATRON_ASIGNATURAS = "^BD|ED|FOL|ING|LMSGI|PROG|SI$";
+
+    
+    
+
+    public Profesor(String dniNie, String identificador, String nombreCompleto, LocalDate fechaAlta1) {
+        super(dniNie, identificador, nombreCompleto, correoElectronico);
+    }
+
+    public Profesor(String identificadorProf, LocalDate fechaAlta, String asignatura, String dniNie, String identificador, String nombreCompleto, String correoElectronico) {
+        super(dniNie, identificador, nombreCompleto, correoElectronico);
+        this.identificadorProf = identificadorProf;
+        this.fechaAlta = fechaAlta;
+        this.asignatura = asignatura;
+    }
+    
+    
+    
+    //metodo validar identificador
+    
+    public boolean validarIdentificador(String identificadorProf1) {
+        Pattern pattern = Pattern.compile(PATRON_IDENTIFICADORPROF);
+        Matcher matcher = pattern.matcher(identificadorProf);
+        return matcher.matches();
+    }
+    
+    //validar asignatura
+    
+    public boolean validarAsignatura() {
+        Pattern pattern = Pattern.compile(PATRON_ASIGNATURAS);
+        Matcher matcher = pattern.matcher(asignatura);
+        return matcher.matches();
+    }
+    
+    //getter y setters
+
+    public String getIdentificadorProf() {
+        return identificadorProf;
+    }
+
+    public void setIdentificadorProf(String identificadorProf) {
+        this.identificadorProf = identificadorProf;
+    }
+
+    public LocalDate getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(LocalDate fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public String getAsignaturaImpate() {
+        return asignatura;
+    }
+
+    public void setAsignaturaImpate(String asignaturaImpate) {
+        this.asignatura = asignaturaImpate;
+    }
+
+     public String getnombreCompleto() {
+        return asignatura;
+    }
+
+    public void setnombreCompleto(String asignatura) {
+        this.asignatura = asignatura;
+    }
+       
+        public String getdniNie() {
+        return dniNie;
+    }
+
+    public void setdniNie(String dniNie) {
+        this.dniNie = dniNie;
+    }
+   
+
+    public String getcorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setcorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+}
+    
+
+     
