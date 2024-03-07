@@ -1,0 +1,33 @@
+package util;
+
+//Autor Cora Lara
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+//en este apartado tenemos que validar DNI y NIe y el correo electrónico de las clases estudiante y profesor
+public class Validaciones {
+
+
+    // Expresion regular para validar DNI/NIE
+    private static final String PATRON_DOCUMENTO = "^(\\d{8}[A-Z])|([XYZ]\\d{7}[A-Z])$";
+
+    // Expresion regular para validar email
+    private static final String PATRON_EMAIL = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+
+    // Método para validar DNI/NIE
+    public static boolean validarDNINIE(String documento) {
+        Pattern dniNiePattern = Pattern.compile(PATRON_DOCUMENTO);
+        Matcher dniNieMatcher = dniNiePattern.matcher(documento);
+        return dniNieMatcher.matches();
+    }
+
+    // Método para validar email
+    public static boolean validarEmail(String email) {
+        Pattern emailPattern = Pattern.compile(PATRON_EMAIL);
+        Matcher emailMatcher = emailPattern.matcher(email);
+        return emailMatcher.matches();
+    }
+
+   
+
+}
