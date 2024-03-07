@@ -1,0 +1,69 @@
+package datos;
+
+//Autor Cora Lara
+import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Estudiante extends Persona {
+
+    //variables clase estudiante
+    private static final String PATRON_IDENTIFICADOREST = "^(NIES)\\d{6}(AB|CR|CU|GU|TO|ES|XX)$";
+    private String identificadorEst;
+    private LocalDate fechaMatriculacion;
+
+    public Estudiante(String dniNie, String identificador, String nombreCompleto, String correoElectronico) {
+        super(dniNie, identificador, nombreCompleto, correoElectronico);
+    }
+
+    //validar identificador estudiante
+    public boolean validarIdentificador() {
+        Pattern pattern = Pattern.compile(PATRON_IDENTIFICADOREST);
+        Matcher matcher = pattern.matcher(identificadorEst);
+        return matcher.matches();
+    }
+    
+    //getters y setters
+    public String getIdentificadorEst() {
+        return identificadorEst;
+    }
+
+    public void setIdentificadorEst(String identificadorEst) {
+        this.identificadorEst = identificadorEst;
+    }
+
+    public LocalDate getFechaMatriculacion() {
+        return fechaMatriculacion;
+    }
+
+    public void setFechaMatriculacion(LocalDate fechaMatriculacion) {
+        this.fechaMatriculacion = fechaMatriculacion;
+    }
+   
+        public String getdniNie() {
+        return dniNie;
+    }
+
+    public void setdniNie(String dniNie) {
+        this.dniNie = dniNie;
+    }
+    
+
+   public String getnombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setnombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getcorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setcorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+    
+
+}
