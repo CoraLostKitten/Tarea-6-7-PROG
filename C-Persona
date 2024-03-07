@@ -1,0 +1,61 @@
+package datos;
+
+//Autor Cora Lara
+
+public class Persona {
+    
+    //declaracion variables
+    
+    String dniNie;
+     private String identificador;
+    String nombreCompleto;
+    String correoElectronico;
+    
+    
+    //contructores 
+    public Persona(String dniNie, String identificador, String nombreCompleto, String correoElectronico) {
+        this.dniNie = dniNie;
+         this.identificador = identificador;
+        this.nombreCompleto = nombreCompleto;
+        this.correoElectronico = correoElectronico;
+    }
+
+    //getter y setters
+    public String getDniNie() {
+        return dniNie;
+    }
+
+    public void setDniNie(String dniNie) {
+        this.dniNie = dniNie;
+    }
+    
+     public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
+    }
+
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+  
+
+        
+        
+    }
+    
