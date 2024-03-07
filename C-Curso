@@ -1,0 +1,176 @@
+package datos;
+
+//Autor Cora Lara
+
+import datos.*;
+import java.time.LocalDate;
+import util.Validaciones;
+
+//esta clase sirve para mantener las notas de un curso de un grupo de alumnos 
+public class Curso {
+
+    //constantes
+    private static final int MAX_ALUMNOS = 100;
+    private static final int MAX_ASIGNATURAS = 7;
+    private static final String NOMBRE_CURSO = "DAM 1 E-Learning";
+
+    //variables
+ 
+    private String nombreCurso;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFinal;
+    //Arrays
+    private Estudiante[] alumnos;
+    private Profesor[] profesores;
+    
+    private int numeroAlumnosMatriculados;
+    
+    //matriz para lamacenar notas
+    private int[][] notas;
+    
+    
+    //contructores
+
+    public Curso(String nombreCurso, LocalDate fechaInicio, LocalDate fechaFinal, Estudiante[] alumnos, Profesor[] profesores, int numeroAlumnosMatriculados, int[][] notas) {
+        this.nombreCurso = nombreCurso;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinal = fechaFinal;
+        this.alumnos = alumnos;
+        this.profesores = profesores;
+        this.numeroAlumnosMatriculados = numeroAlumnosMatriculados;
+        this.notas = notas;
+    
+    }
+
+  
+    
+    //getters y setters
+
+    public String getNombreCurso() {
+        return nombreCurso;
+    }
+
+    public void setNombreCurso(String nombreCurso) {
+        this.nombreCurso = nombreCurso;
+    }
+
+    public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public LocalDate getFechaFinal() {
+        return fechaFinal;
+    }
+
+    public void setFechaFinal(LocalDate fechaFinal) {
+        this.fechaFinal = fechaFinal;
+    }
+
+    public int getNumeroAlumnosMatriculados() {
+        return numeroAlumnosMatriculados;
+    }
+
+    public void setNumeroAlumnosMatriculados(int numeroAlumnosMatriculados) {
+        this.numeroAlumnosMatriculados = numeroAlumnosMatriculados;
+    }
+
+    public int[][] getNotas() {
+        return notas;
+    }
+
+    public void setNotas(int[][] notas) {
+        this.notas = notas;
+    }
+
+    public Estudiante[] getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(Estudiante[] alumnos) {
+        this.alumnos = alumnos;
+    }
+
+    public Profesor[] getProfesores() {
+        return profesores;
+    }
+
+    public void setProfesores(Profesor[] profesores) {
+        this.profesores = profesores;
+    }
+    
+    
+    
+    
+    
+    
+
+    //metodos
+    //agregar estudiante
+    public void matricularEstuciante(Estudiante estudiante) {
+        if (numeroAlumnosMatriculados < MAX_ALUMNOS){
+            alumnos[numeroAlumnosMatriculados] = estudiante;
+            numeroAlumnosMatriculados++;
+            
+        }else{
+            System.out.println("No se pueden matricular más estudiantes");
+            
+        }
+    }
+    //calcular nota media
+    public double calcularNotaMedia() {
+    double sumaNotas = 0;
+    for (int i = 0; i < numeroAlumnosMatriculados; i++) {
+        for (int j = 0; j < MAX_ASIGNATURAS; j++) {
+            sumaNotas += notas[i][j];
+        }
+    }
+    return sumaNotas / (numeroAlumnosMatriculados * MAX_ASIGNATURAS);
+}
+    
+     // Método para comprobar rango de notas (mover a curso)
+    public static boolean validarRangoNotas(int nota) {
+        return nota >= 1 && nota <= 10;
+    }
+    
+    
+    
+    
+    //informe asignatura
+    
+    
+    //informe datos alumnos
+    
+    
+    //informe de todos los datos de asignaturas y alumnos (informe del curso)
+    
+   
+    //mostrar lista alumnos/contador alumnos
+    
+    
+    
+    //creacion ficticia de datos de 100 alunmos y 7 profesores para probar el programa(notas se generan aleatoriamente)
+  
+      
+                    
+        }
+            
+        
+        
+        
+        
+        
+        
+    
+    
+   
+
+
+
+
+
+    
+
