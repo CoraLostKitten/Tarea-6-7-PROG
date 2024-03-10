@@ -157,6 +157,166 @@ public class Curso {
       
                     
         }
+
+
+
+//version 2
+package datos;
+
+//Autor Cora Lara
+
+import java.time.LocalDate;
+import datos.Asignaturas;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import prog067_tarea.Principal;
+
+
+
+//esta clase sirve para mantener las notas de un curso de un grupo de alumnos 
+public class Curso {
+
+    //constantes
+    private static final int MAX_ESTUDIANTES = 100;
+    private static final int MAX_ASIGNATURAS = 7;
+    private String nombreCurso;
+    private final int [][] notas;
+    private final Profesor [] profesores;
+    private final Estudiante [] estudiantes;
+
+    //variables
+    private LocalDate fechaInicio;
+    private LocalDate fechaFinal;
+    private int numeroAlumnosMatriculados;
+    
+    
+    
+    
+    //contructores
+    public Curso(String nombre, LocalDate fechaInicio, LocalDate fechaFinal) {
+        notas = new int [MAX_ESTUDIANTES][MAX_ASIGNATURAS];
+        //inicializar notas
+        profesores = new Profesor[MAX_ASIGNATURAS];
+        estudiantes = new Estudiante[MAX_ESTUDIANTES];
+        this.numeroAlumnosMatriculados = 0;
+        this.nombreCurso = nombre;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinal = fechaFinal;
+            }
+   
+    
+    }
+    
+  
+ 
+    
+    
+    
+    //getters y setters
+
+
+    
+    
+    
+    
+    
+   //validacion de fecha (buscar una forma de validar la fecha mas clara)
+public static boolean validarFecha (){
+                        if (fechaInicio.isAfter(fechaFinal)) {
+ System.out.println("La fecha de inicio no puede ser posterior a la fecha final");
+                    }else if (fechaInicio.isBefore(fechaFinal)) {
+ System.out.println("La fehca introducida es correcta");
+}
+
+
+
+                            
+                   
+
+
+
+
+
+
+
+   //metodo crear curso
+    public static Curso crearCurso(){
+    LocalDate fechaInicio = null, fechaFinal = null;
+boolean validarFecha = false; 
+
+
+}
+    
+    
+    
+    
+    //creacion métodos agregar alumno
+    public boolean agregarAlumno (insertar atributos clase estudiante){
+        if (numeroAlumnosMatriculados < 99){
+            estudiantes [numeroAlumnosMatriculados] = new Estudiante ()
+                    for (int i = 0; i < notas.length; i++) {
+                        this.notas[numeroAlumnosMatriculados][i] = notas [i];
+                        
+                    }
+                    numeroAlumnosMatriculados++;
+                    return true;
+        }else{
+            return false;
+        }
+    }
+    
+    //agregar profesor
+    public static boolean agragarProfesor (insertar atributos clase profesor){
+        int indicarAsignatura = asigProf.ordinal();
+        if (indicarAsignatura >= 0 && indicarAsignatura <= 6){
+            profesores [indiceAsignatura] = new Profesor (atributos);
+            return true; 
+                    
+        }else{ 
+            return false;
+        }
+    }
+
+    
+//calcular nota media
+    public double calcularNotaMedia() {
+    double sumaNotas = 0;
+    for (int i = 0; i < numeroAlumnosMatriculados; i++) {
+        for (int j = 0; j < MAX_ASIGNATURAS; j++) {
+            sumaNotas += notas[i][j];
+        }
+    }
+    return sumaNotas / (numeroAlumnosMatriculados * MAX_ASIGNATURAS);
+}
+    
+     // Método para comprobar rango de notas (mover a curso)
+    public static boolean validarRangoNotas(int nota) {
+        return nota >= 1 && nota <= 10;
+    }
+    
+    
+    
+    
+    //informe asignatura
+    
+    
+    //informe datos alumnos
+    
+    
+    //informe de todos los datos de asignaturas y alumnos (informe del curso)
+    
+   
+    //mostrar lista alumnos/contador alumnos
+    
+    
+    
+    //creacion ficticia de datos de 100 alunmos y 7 profesores para probar el programa(notas se generan aleatoriamente)
+  
+      
+                    
+        }
+
+
             
         
         
