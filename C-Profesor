@@ -25,11 +25,6 @@ public class Profesor extends Persona {
     private static final String PATRON_ASIGNATURAS = "^BD|ED|FOL|ING|LMSGI|PROG|SI$";
 
     
-    
-
-    public Profesor(String dniNie, String identificador, String nombreCompleto, LocalDate fechaAlta1) {
-        super(dniNie, identificador, nombreCompleto, correoElectronico);
-    }
 
     public Profesor(String identificadorProf, LocalDate fechaAlta, String asignatura, String dniNie, String identificador, String nombreCompleto, String correoElectronico) {
         super(dniNie, identificador, nombreCompleto, correoElectronico);
@@ -74,40 +69,17 @@ public class Profesor extends Persona {
         this.fechaAlta = fechaAlta;
     }
 
-    public String getAsignaturaImpate() {
+    public String getAsignatura() {
         return asignatura;
     }
 
-    public void setAsignaturaImpate(String asignaturaImpate) {
-        this.asignatura = asignaturaImpate;
-    }
-
-     public String getnombreCompleto() {
-        return asignatura;
-    }
-
-    public void setnombreCompleto(String asignatura) {
+    public void setAsignatura(String asignatura) {
         this.asignatura = asignatura;
-    }
-       
-        public String getdniNie() {
-        return dniNie;
-    }
-
-    public void setdniNie(String dniNie) {
-        this.dniNie = dniNie;
-    }
-   
-
-    public String getcorreoElectronico() {
-        return correoElectronico;
-    }
-
-    public void setcorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
     }
 
 }
+
+     
     
 
      
