@@ -160,6 +160,19 @@ public class Curso {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 //version 2
 package datos;
 
@@ -190,9 +203,7 @@ public class Curso {
     private int numeroAlumnosMatriculados;
     
     
-    
-    
-    //contructores
+     //contructores
     public Curso(String nombre, LocalDate fechaInicio, LocalDate fechaFinal) {
         notas = new int [MAX_ESTUDIANTES][MAX_ASIGNATURAS];
         //inicializar notas
@@ -207,37 +218,16 @@ public class Curso {
     
     }
     
-  
- 
-    
-    
-    
-    //getters y setters
+ //getters y setters
 
 
-    
-    
-    
-    
-    
-   //validacion de fecha (buscar una forma de validar la fecha mas clara)
+//validacion de fecha (buscar una forma de validar la fecha mas clara)
 public static boolean validarFecha (){
                         if (fechaInicio.isAfter(fechaFinal)) {
  System.out.println("La fecha de inicio no puede ser posterior a la fecha final");
                     }else if (fechaInicio.isBefore(fechaFinal)) {
  System.out.println("La fehca introducida es correcta");
 }
-
-
-
-                            
-                   
-
-
-
-
-
-
 
    //metodo crear curso
     public static Curso crearCurso(){
@@ -247,10 +237,7 @@ boolean validarFecha = false;
 
 }
     
-    
-    
-    
-    //creacion métodos agregar alumno
+     //creacion métodos agregar alumno
     public boolean agregarAlumno (insertar atributos clase estudiante){
         if (numeroAlumnosMatriculados < 99){
             estudiantes [numeroAlumnosMatriculados] = new Estudiante ()
@@ -315,6 +302,179 @@ boolean validarFecha = false;
       
                     
         }
+
+
+
+
+
+
+
+
+
+
+
+//version 3 (ultima versión)
+package datos;
+
+//Autor Cora Lara
+
+import java.time.LocalDate;
+import datos.Asignaturas;
+import java.util.Random;
+import java.util.Scanner;
+
+
+//esta clase sirve para mantener las notas de un curso de un grupo de alumnos 
+public class Curso {
+
+    
+    
+    private Scanner lector = new Scanner(System.in);
+
+    //constantes y variables
+    private static final int MAX_ESTUDIANTES = 100;
+    private static final int MAX_ASIGNATURAS = 7;
+    private final String NOMBRE_CURSO = "DAM 1 E-Learning";
+    private final int [][] notas;
+    private final Profesor [] profesores;
+    private final Estudiante [] estudiantes;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFinal;
+    private int numeroAlumnosMatriculados;
+    
+    
+    //contructor
+    public Curso(String nombre, LocalDate fechaInicio, LocalDate fechaFinal) {
+        notas = new int [MAX_ESTUDIANTES][MAX_ASIGNATURAS];
+        //inicializar notas
+        profesores = new Profesor[MAX_ASIGNATURAS];
+        estudiantes = new Estudiante[MAX_ESTUDIANTES];
+        this.numeroAlumnosMatriculados = 0;
+        this.fechaInicio = fechaInicio;
+        this.fechaFinal = fechaFinal;
+            }
+
+    
+    //getters y setters 
+      public LocalDate getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public LocalDate getFechaFinal() {
+        return fechaFinal;
+    }
+
+    public void setFechaFinal(LocalDate fechaFinal) {
+        this.fechaFinal = fechaFinal;
+    }
+
+    public int getNumeroAlumnosMatriculados() {
+        return numeroAlumnosMatriculados;
+    }
+
+    public void setNumeroAlumnosMatriculados(int numeroAlumnosMatriculados) {
+        this.numeroAlumnosMatriculados = numeroAlumnosMatriculados;
+    }
+    
+    
+    //metodos
+    //validación de fecha curso
+    public boolean validarFecha(LocalDate fechaInicio1, LocalDate fechaFinal1){
+        if (this.fechaInicio.isAfter(this.fechaFinal)){
+            System.out.println("La fecha de inicio no puede ser posterior a la fecha final");
+            return false;
+        }else{
+            System.out.println("Las fechas son válidas");
+            return true;
+        }
+    }
+    
+    
+    //crear curso
+   public Curso crearCurso(){
+       Curso nuevoCurso = new Curso(NOMBRE_CURSO, LocalDate.MIN, LocalDate.MIN);
+       
+       System.out.println("Introduce la fecha de inico del curso YYYY-MM-DD");
+       nuevoCurso.fechaInicio = LocalDate.parse(getLector().nextLine());
+       
+       System.out.println("Introduce la fecha de fin de curso YYYY-MM-DD");
+       nuevoCurso.fechaFinal = LocalDate.parse(getLector().nextLine());
+       
+      if (!validarFecha(nuevoCurso.fechaInicio, nuevoCurso.fechaFinal)){
+          System.out.println("La fecha de inicio no puede ser posterior a la fecha final");
+          return null;
+      }
+       System.out.println("Curso creado");
+       return nuevoCurso;
+       
+       
+   }
+
+   //getter setter de lector
+    public Scanner getLector() {
+        return lector;
+    }
+
+    public void setLector(Scanner lector) {
+        this.lector = lector;
+    }
+
+    // Método agregar alumno
+    public boolean agregarEstudiante(String dniNie, String identificador, String nombreCompleto, String correoElectronico) {
+        if (numeroAlumnosMatriculados < 99) { // Verificar si hay espacio disponible para agregar un estudiante
+            // Crear un nuevo objeto Estudiante y asignarlo a la posición correspondiente en el array de estudiantes
+            estudiantes[numeroAlumnosMatriculados] = new Estudiante(dniNie, identificador, nombreCompleto, correoElectronico);
+
+            for (int i = 0; i < notas[0].length; i++) {
+                this.notas[numeroAlumnosMatriculados][i] = notas[0][i];
+            }
+
+            numeroAlumnosMatriculados++; // Incrementar el contador de alumnos matriculados
+            return true; // Indicar que el estudiante fue agregado con éxito
+        } else {
+            return false; // Indicar que no hay espacio disponible para agregar más estudiantes
+        }
+    }
+
+    //método agregar 
+    public boolean agregarProfesor(String identificadorProf, LocalDate fechaAlta, String asignatura, String dniNie, String identificador, String nombreCompleto, String correoElectronico) {
+        int indiceAsignatura = obtenerIndiceAsignatura(asignatura); // Obtener el índice de la asignatura
+        if (indiceAsignatura >= 0 && indiceAsignatura <= 6) { // Verificar si el índice es válido
+            profesores[indiceAsignatura] = new Profesor(identificadorProf, fechaAlta, asignatura, dniNie, identificador, nombreCompleto, correoElectronico); // Crear un nuevo objeto Profesor y asignarlo al array de profesores
+            return true; // Indicar que el profesor fue agregado con éxito
+        } else {
+            return false; // Indicar que no se pudo agregar el profesor debido a un índice de asignatura inválido
+        }
+    }
+    
+    
+    
+    //metodo para calcular nota media
+    public double calcularNotaMedia() {
+    double sumaNotas = 0;
+    for (int i = 0; i < numeroAlumnosMatriculados; i++) {
+        for (int j = 0; j < MAX_ASIGNATURAS; j++) {
+            sumaNotas += notas[i][j];
+        }
+    }
+    return sumaNotas / (numeroAlumnosMatriculados * MAX_ASIGNATURAS);
+}
+    
+    //metodo para validar el rango d elas notas 
+      public static boolean validarRangoNotas(int nota) {
+        return nota >= 1 && nota <= 10;
+    }
+
+
+    
+   
+    
+    }
+ 
 
 
             
