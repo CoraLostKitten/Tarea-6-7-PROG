@@ -456,6 +456,10 @@ public class Principal {
 
 
 
+
+
+
+
 version 2
 package prog067_tarea;
 
@@ -919,6 +923,111 @@ public class Principal {
 
                 }
             }
+
+
+
+
+//VERSION 3 ULTIMA
+
+package prog067_tarea;
+
+//Autor Cora Lara
+//importar medios
+import util.Validaciones;
+import datos.*;
+import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Principal {
+
+    //Scanner
+    Scanner lector = new Scanner(System.in);
+
+    public static int verMenu() {
+        // Creación del menú (visualización de opciones en pantalla)
+        System.out.println("Selecciona una opción");
+
+        System.out.println("1. Crear curso");
+
+        System.out.println("2. Nuevo estudiante");
+
+        System.out.println("3. Nuevo profesor");
+
+        System.out.println("4. Actualizar nota");
+
+        System.out.println("5. Obtener informe profesor");
+
+        System.out.println("6. Obtener informe estudiante");
+
+        System.out.println("7. Obtener informe general");
+
+        System.out.println("8. Salir");
+
+        int opcion = lector.nextInt();
+
+        //salto de linea
+        lector.nextLine();
+
+        return option;
+    }
+    
+    
+    
+    
+    
+    //Creacion de menu(crear switch con las distintas opciones y lo quye hace cada una)
+    switch (opcion) {
+        //crear nuevo curso llamando al metodo creado en la clase curso
+        case 1 -> {
+            curso.crearCurso();
+        }
+        break;
+
+            
+        //introducir nuevo profesor 
+        case 2 -> {
+            if (crearCurso = nuevoCurso) {
+                curso.agregarProfesor();
+            }
+        }
+        break;
+             
+                           
+         //introducir nuevo alumno 
+         case 3 -> {
+            if (crearCurso = nuevoCurso) {
+                curso.agregarEstudiante;
+            }
+
+        }
+        break;
+
+            
+
+        case 4 -> {
+
+        }
+
+        case 5 -> {
+
+        }
+
+        case 6 -> {
+
+        }
+
+        case 7 -> {
+
+        }
+
+        case 8 -> 
+                
+                
+                
+            
+    }
         
     
 
